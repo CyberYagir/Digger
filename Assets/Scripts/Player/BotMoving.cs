@@ -80,7 +80,7 @@ public class BotMoving : MovebleObject
                 findOtherTree = true;
             }
         }
-        if (aiPath.velocity.magnitude > 0.01f)
+        if (new Vector3(aiPath.velocity.x, 0, aiPath.velocity.z).magnitude > 0.01f)
         {
             run += Time.deltaTime * 2;
         }
@@ -102,7 +102,7 @@ public class BotMoving : MovebleObject
         }
         else
         {
-            if (aiPath.velocity.magnitude <= 0.01f)
+            if (new Vector3(aiPath.velocity.x, 0, aiPath.velocity.z).magnitude <= 0.01f)
             {
                 run -= Time.deltaTime * 2;
             }

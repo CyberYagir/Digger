@@ -13,7 +13,22 @@ public class BuildsList : MonoBehaviour
     {
         if (preview != null)
         {
-            preview.transform.position = Vector3Int.RoundToInt(BuildPoint.instance.transform.position) + (Vector3.one/2f);
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                    if (Physics.Raycast(ray, out RaycastHit hit))
+                    {
+                        if (hit.collider != null)
+                        {
+                            Debug.DrawLine(Camera.main.transform.position, hit.point);
+                            preview.transform.position = Vector3Int.RoundToInt(new Vector3(hit.point.x, 0, hit.point.z)) + new Vector3(0.5f, 0, 0.5f);
+                        }
+                    }
+                }
+            }
         }
     }
 

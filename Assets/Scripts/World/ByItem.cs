@@ -92,18 +92,6 @@ public class ByItem : ActionCircle
     private void Update()
     {
         time += Time.deltaTime;
-        print(spawn);
-        if (spawn)
-        {
-            if (time > 2)
-            {
-                end.Invoke();
-                SetEmpty();
-                waitForExit = true;
-                time = 0;
-                spawn = false;
-            }
-        }
         if (triggered)
         {
             if (time >= 1 && waitForExit == false && spawn == false)
@@ -116,14 +104,22 @@ public class ByItem : ActionCircle
                         items[i].value -= removed.Count;
                         StartCoroutine(moveDrop(removed));
                         time = 0;
-                        spawn = true;
                     }
-                }                
+                }
+                else
+                {
+                    time = 0;
+                    spawn = true;
+                }
             }
         }
-        else
+        if (time > 2 && spawn)
         {
+            end.Invoke();
+            SetEmpty();
+            waitForExit = true;
             time = 0;
+            spawn = false;
         }
     }
     IEnumerator moveDrop(List<Drop> removed)
