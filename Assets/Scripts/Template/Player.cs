@@ -36,7 +36,8 @@ public abstract class MovebleObject : MonoBehaviour {
     {
         if (transform.position.y < -5)
         {
-            transform.position = Vector3.zero + (Vector3.up * 20);
+            Physics.Raycast(Vector3.zero + new Vector3(0, 100, 0), Vector3.down, out RaycastHit hit);
+            transform.position = hit.point;
         }
     }
 

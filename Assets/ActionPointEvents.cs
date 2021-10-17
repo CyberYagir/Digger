@@ -41,9 +41,12 @@ public class ActionPointEvents : ActionCircle
     }
     private void OnTriggerExit(Collider other)
     {
-        exit.Invoke();
-        waitForExit = false;
-        triggered = false;
+        if (other.GetComponentInParent<Player>())
+        {
+            exit.Invoke();
+            waitForExit = false;
+            triggered = false;
+        }
     }
 
 }
