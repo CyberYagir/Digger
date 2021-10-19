@@ -13,6 +13,8 @@ public class BuildsList : MonoBehaviour
     int previewYRot;
     public Material buildOK, buildNo;
     public GameObject mainCanvas, placeCanvas;
+
+    bool allNormal;
     private void Start()
     {
         DesactiveMainCanvas();
@@ -50,7 +52,7 @@ public class BuildsList : MonoBehaviour
                             {
                                 previewPos = Vector3Int.RoundToInt(new Vector3(hit.point.x, 0, hit.point.z)) + new Vector3(0.5f, 0, 0.5f);
 
-                                bool allNormal = true;
+                                allNormal = true;
                                 var oldPos = preview.transform.position;
                                 preview.transform.position = previewPos;
 
@@ -168,20 +170,24 @@ public class BuildsList : MonoBehaviour
         QualitySettings.shadowResolution = ShadowResolution.Low;
 
         preview = Instantiate(builds[selectedIndex], previewPos, Quaternion.identity);
-
-        foreach (var item in preview.GetComponentsInChildren<Collider>())
+        foreach (var item in preview.GetComponentsInChildren<Collider>(true))
         {
-            item.enabled = false;
+            Destroy(item);
         }
         mainCanvas.SetActive(false);
         placeCanvas.SetActive(true);
+
+        preview.GetComponent<Building>().status = BuildingType.Preview;
     }
 
 
     public void PlaceBuild()
     {
-        var build = Instantiate(builds[selectedIndex], previewPos, Quaternion.Euler(0, previewYRot, 0));
-        build.GetComponent<Building>().BuildingMode();
-        CancelBuild();
+        if (allNormal)
+        {
+            var build = Instantiate(builds[selectedIndex], previewPos, Quaternion.Euler(0, previewYRot, 0));
+            build.GetComponent<Building>().status = BuildingType.InConstruction;
+            CancelBuild();
+        }
     }
 }
