@@ -31,7 +31,8 @@ public class StatsUI : MonoBehaviour
         var sortAbst = ResoucesManager.instance.itemsAbstract.OrderBy(x => x.value).ToList();
         foreach (var it in sortAbst)
         {
-            SpawnItem(it);
+            if (it.value > 0)
+                SpawnItem(it);
         }
     }
 

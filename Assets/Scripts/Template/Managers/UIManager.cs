@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     [SerializeField] GameObject deathUI, winUI;
     [SerializeField] GameObject tapToPlay;
+    public GameObject loadingCanvas;
     #region Mono
     private void Start()
     {
@@ -86,4 +87,6 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+
+
 }

@@ -40,7 +40,10 @@ public class PartsManager : MonoBehaviour
     {
         if (rigidbodies.Length == 0)
         {
-            LandRegenerator.instance.Regen();
+            foreach (var item in LandsManager.instance.activeLands)
+            {
+                LandRegenerator.instance.Regen(new Vector3Int(item.arrayPos.x, 0, item.arrayPos.y));
+            }
         }
     }
 }

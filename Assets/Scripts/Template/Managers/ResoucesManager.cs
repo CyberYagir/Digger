@@ -102,4 +102,19 @@ public class ResoucesManager : MonoBehaviour
     {
         itemsAbstract.Find(x => x.name == name).value += val;
     }
+    public bool SubToAbstract(string name, int val)
+    {
+        var item = itemsAbstract.Find(x => x.name == name);
+        if (item.value >= val)
+        {
+            item.value -= val;
+            return true;
+        }
+        return false;
+    }
+
+    public AbstractItem GetToAbstract(string name)
+    {
+        return itemsAbstract.Find(x => x.name == name);
+    }
 }

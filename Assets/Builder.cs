@@ -18,7 +18,13 @@ public class Builder : MonoBehaviour
     bool allNormal;
     private void Start()
     {
+        if (GetComponentInParent<Land>().arrayPos != Vector2Int.zero)
+        {
+            Destroy(gameObject);
+        }
         DesactiveMainCanvas();
+        NextBuild();
+        PrevBuild();
     }
 
     private void Update()

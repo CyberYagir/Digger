@@ -26,9 +26,12 @@ public class CoinHouse : MonoBehaviour
 
     public void GetCoin()
     {
-        ResoucesManager.instance.AddToAbstract("Coin", 1);
-        coinProgress = -1;
-        particleSystem.Play();
-        StatsUI.instance.Redraw();
+        if ((coinProgress >= coinTime))
+        {
+            ResoucesManager.instance.AddToAbstract("Coin", 1);
+            coinProgress = -1;
+            particleSystem.Play();
+            StatsUI.instance.Redraw();
+        }
     }
 }

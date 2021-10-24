@@ -18,4 +18,4 @@ MonoBehaviour:
     saves: {fileID: 11400000, guid: 9d4e7734cd70b6a4eb48332c6ddb3fc8, type: 2}
     startByTap: 0
     levelList:
-    - {fileID: 4743487555137618502, guid: a56b1b407fee1464d8436e2c95e39909, type: 3}
+    - {fileID: 1479925575099964589, guid: c358631811723a048979b5d26be2959f, type: 3}
