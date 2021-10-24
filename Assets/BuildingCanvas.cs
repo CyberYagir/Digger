@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingCanvas : MonoBehaviour
 {
-    public Quaternion globalRot;
+    Quaternion globalRot;
 
     private void Update()
     {

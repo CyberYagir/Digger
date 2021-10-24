@@ -5,11 +5,15 @@ using UnityEngine;
 public enum BuildingType {Preview, InConstruction, Finished}
 public class Building : MonoBehaviour
 {
+    [ReadOnly] public string houseName;
     public BuildingType status;
     public List<GameObject> parts;
     [SerializeField] GameObject building, main, canvas, buyItem;
 
- 
+    public void SetStatusFinal()
+    {
+        status = BuildingType.Finished;
+    }
 
     private void Update()
     {

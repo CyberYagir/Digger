@@ -8,10 +8,18 @@ public class ItemCounter{
     public float value;
 }
 
-
+[System.Serializable]
+public class AbstractItem
+{
+    public string name;
+    public int value;
+    public Sprite icon;
+}
 public class ResoucesManager : MonoBehaviour
 {
     public List<ItemCounter> valueItems = new List<ItemCounter>();
+    public List<AbstractItem> itemsAbstract = new List<AbstractItem>(); 
+
     PlayersManager playersManager;
 
     public static ResoucesManager instance;
@@ -81,5 +89,17 @@ public class ResoucesManager : MonoBehaviour
             StatsUI.instance.Redraw();
         }
         return removed;
+    }
+
+
+
+    public static AbstractItem GetItemAbstract(string name)
+    {
+        return instance.itemsAbstract.Find(x => x.name.Trim().ToLower() == name.Trim().ToLower());
+    }
+
+    public void AddToAbstract(string name, int val)
+    {
+        itemsAbstract.Find(x => x.name == name).value += val;
     }
 }

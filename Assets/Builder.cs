@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildsList : MonoBehaviour
+public class Builder : MonoBehaviour
 {
     public List<GameObject> builds;
     public int selectedIndex;
@@ -13,7 +14,7 @@ public class BuildsList : MonoBehaviour
     int previewYRot;
     public Material buildOK, buildNo;
     public GameObject mainCanvas, placeCanvas;
-
+    public TMP_Text mainCanvasText;
     bool allNormal;
     private void Start()
     {
@@ -108,6 +109,7 @@ public class BuildsList : MonoBehaviour
         {
             selectedIndex = 0;
         }
+        UpdateMainBuildText();
     }
     public void PrevBuild()
     {
@@ -116,6 +118,12 @@ public class BuildsList : MonoBehaviour
         {
             selectedIndex = builds.Count - 1;
         }
+        UpdateMainBuildText();
+    }
+
+    public void UpdateMainBuildText()
+    {
+        mainCanvasText.text = builds[selectedIndex].transform.name;
     }
 
     public void ActiveMainCanvas()
@@ -166,10 +174,18 @@ public class BuildsList : MonoBehaviour
         Camera.main.transform.parent.GetComponent<CameraFollow>().enabled = false;
         Camera.main.transform.parent.GetComponent<CameraBuild>().enabled = true;
 
+
+
         QualitySettings.shadowDistance = 60;
         QualitySettings.shadowResolution = ShadowResolution.Low;
 
         preview = Instantiate(builds[selectedIndex], previewPos, Quaternion.identity);
+
+        foreach (var item in preview.GetComponentsInChildren<ParticleSystem>(true))
+        {
+            Destroy(item);
+        }
+
         foreach (var item in preview.GetComponentsInChildren<Collider>(true))
         {
             Destroy(item);
@@ -186,7 +202,9 @@ public class BuildsList : MonoBehaviour
         if (allNormal)
         {
             var build = Instantiate(builds[selectedIndex], previewPos, Quaternion.Euler(0, previewYRot, 0));
-            build.GetComponent<Building>().status = BuildingType.InConstruction;
+            var sbuild = build.GetComponent<Building>();
+            sbuild.status = BuildingType.InConstruction;
+            sbuild.houseName = builds[selectedIndex].transform.name;
             CancelBuild();
         }
     }

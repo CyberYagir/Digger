@@ -111,6 +111,7 @@ public class BuyItem : ActionCircle
                                 item.transform.parent = stackTransform;
                                 SetDropPos(item);
                             }
+                            ItemsChangeEvent();
                             //StartCoroutine(moveDrop(removed));
                             time = 0;
                         }
@@ -123,20 +124,13 @@ public class BuyItem : ActionCircle
                 }
             }
         }
-        if (time > 2 && spawn)
+        if (time > 1 && spawn)
         {
             end.Invoke();
             SetEmpty();
             waitForExit = true;
             time = 0;
             spawn = false;
-        }
-    }
-    IEnumerator moveDrop(List<Drop> removed)
-    {
-        foreach (var item in removed)
-        {
-            yield return new WaitForSeconds(1f/(float)removed.Count);
         }
     }
     public bool IsValidDropPoint(int resourceID)

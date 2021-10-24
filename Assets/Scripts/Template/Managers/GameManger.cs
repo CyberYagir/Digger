@@ -130,10 +130,6 @@ public class GameManger : MonoBehaviour
         {
             NextLevel();
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            data.saves.AddToPref(Prefs.Points, 10);
-        }
 
 #endif
     }

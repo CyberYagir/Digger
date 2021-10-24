@@ -76,15 +76,15 @@ public class Entity : EntityParent
     public override void Mine(StackManager stackManager)
     {
         base.Mine(stackManager);
-        if (parts.Count != 0)
+        if (parts.Count > 0)
         {
             miner = stackManager.GetComponent<ActiveEntity>();
             parts[0].Demolish();
             parts.RemoveAt(0);
         }
-        else
+        if (parts.Count == 0)
         {
-            
+
             EntityManager.entityManager.SetMined(this, stackManager); //Выход их тупика
             for (int i = 0; i < activeEntities.Count; i++)
             {
@@ -92,7 +92,6 @@ public class Entity : EntityParent
             }
             Destroy(gameObject);
             EntityManager.entityManager.ScanAction();
-           
         }
     }
 
