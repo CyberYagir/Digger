@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116f23bf2938cad418b6105340402cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 0
+  money: 4
   dir: {x: 1, y: 0}
   text: {fileID: 8957095356018912483}
 --- !u!1001 &4976914388805850010

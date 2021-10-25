@@ -11,7 +11,15 @@ public class Drop : MonoBehaviour
     public int resourceID = -1;
     private void Start()
     {
-        stackManager = EntityManager.entityManager.mined.Find(x => x.entityID == entityID).stackManager;
+        var n = EntityManager.entityManager.mined.Find(x => x.entityID == entityID);
+        if (n != null)
+        {
+            stackManager = n.stackManager;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

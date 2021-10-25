@@ -21,12 +21,14 @@ public class LandRegenerator : MonoBehaviour
             entityManager.ResetData();
             RaycastHit hit;
             Vector3 pos = landPos + new Vector3(Random.Range(-range.x, range.x)/2f, 100, Random.Range(-range.y, range.y)/2f);
-            Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore);
+
+            var mask = LayerMask.GetMask("Default", "Resources", "Obstacle");
+            Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity, mask, QueryTriggerInteraction.Ignore);
             int trys = 0;
             while (hit.transform.tag != "Grass" && Vector3.Distance(GameManger.player.transform.position, hit.point) < 25)
             {
-                pos = new Vector3(Random.Range(-range.x, range.x) / 2f, 100, Random.Range(-range.y, range.y) / 2f);
-                Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore);
+                pos = new Vector3(Random.Range(-range.x, range.x) / 2f, 500, Random.Range(-range.y, range.y) / 2f);
+                Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity, mask, QueryTriggerInteraction.Ignore);
                 trys++;
                 if (trys > 5) return;
             }

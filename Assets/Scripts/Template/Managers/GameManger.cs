@@ -43,10 +43,6 @@ public class GameManger : MonoBehaviour
         OnLevelStarted(data);
         LoadLevel();
     }
-    private void Start()
-    {
-        (AstarPath.active.data.graphs[0] as GridGraph).collision.heightMask = LayerMask.GetMask("Default");
-    }
     private void Update()
     {
         if (instance == null) instance = this;

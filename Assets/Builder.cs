@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -63,30 +64,26 @@ public class Builder : MonoBehaviour
                                 var oldPos = preview.transform.position;
                                 preview.transform.position = previewPos;
 
+                                var bp = preview.GetComponent<BuildingParametrs>();
+                                var mask = LayerMask.GetMask("Default", "Resources", "Obstacle");
+                                var raycast = Physics.BoxCastAll(preview.transform.TransformPoint(bp.localCenterPosition), bp.sizes/2f, Vector3.down, preview.transform.rotation, bp.sizes.magnitude, mask, QueryTriggerInteraction.Ignore);
+
+                                var list = raycast.ToList();
+
+                                list.RemoveAll(x => x.transform.tag == "Grass");
+
+                                allNormal = list.Count == 0;
+
                                 foreach (var item in preview.GetComponent<Building>().parts)
                                 {
-                                    if (Physics.Raycast(item.transform.position + new Vector3(0, 2, 0), Vector3.down, out RaycastHit pHit, Mathf.Infinity, LayerMask.GetMask("Default")))
-                                    {
-                                        if (pHit.collider == null)
-                                        {
-                                            allNormal = false;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            if (pHit.transform.tag != "Grass")
-                                            {
-                                                allNormal = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    else
+                                    if (!Physics.Raycast(item.transform.position + Vector3.up * 5f, Vector3.down, Mathf.Infinity, mask, QueryTriggerInteraction.Ignore))
                                     {
                                         allNormal = false;
                                         break;
                                     }
                                 }
+
+
                                 preview.transform.position = oldPos;
 
                                 foreach (var item in preview.GetComponentsInChildren<Renderer>())
@@ -102,6 +99,7 @@ public class Builder : MonoBehaviour
             }
         }
     }
+
 
     public void AddRotation()
     {

@@ -19,6 +19,6 @@ MonoBehaviour:
   - name: CompletedLevels
     pref: 1
     savePref: 1
-  - name: Points
+  - name: Coins
     pref: 2
     savePref: 1

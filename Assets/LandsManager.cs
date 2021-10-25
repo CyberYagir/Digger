@@ -40,6 +40,7 @@ public class LandsManager : MonoBehaviour
             lands[pos.x, pos.y] = land.GetComponent<Land>();
             lands[pos.x, pos.y].arrayPos = pos;
             LandRegenerator.instance.RegenLand(new Vector3Int(pos.x, 0, pos.y));
+            activeLands.Add(lands[pos.x, pos.y]);
         }
         return lands[pos.x, pos.y];
     }

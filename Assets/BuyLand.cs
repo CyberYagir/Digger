@@ -11,8 +11,10 @@ public class BuyLand : MonoBehaviour
     Vector2Int parentPos;
     private void Start()
     {
-        UpdateText();
         parentPos = GetComponentInParent<Land>().arrayPos;
+        money *= LandsManager.instance.activeLands.Count;
+        UpdateText();
+
     }
 
     private void Update()

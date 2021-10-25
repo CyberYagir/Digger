@@ -13,6 +13,7 @@ public class Building : MonoBehaviour
     public void SetStatusFinal()
     {
         status = BuildingType.Finished;
+        AstarPath.active.ScanAsync();
     }
 
     private void Update()
