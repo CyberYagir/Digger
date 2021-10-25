@@ -16,7 +16,8 @@ public class LandsManager : MonoBehaviour
 
     private void Start()
     {
-        AddLand(new Vector2Int(0, 0));
+        if (!SaveLoadManager.haveSave)
+            AddLand(new Vector2Int(0, 0));
     }
 
     public bool CheckPos(Vector2Int pos, Vector2Int dir)
@@ -32,14 +33,17 @@ public class LandsManager : MonoBehaviour
         return false;
     }
 
-    public Land AddLand(Vector2Int pos)
+    public Land AddLand(Vector2Int pos, bool regen = true)
     {
         if (lands[pos.x, pos.y] == null)
         {
             var land = Instantiate(landPrefab, new Vector3(pos.x, 0, pos.y) * 50, Quaternion.identity);
             lands[pos.x, pos.y] = land.GetComponent<Land>();
             lands[pos.x, pos.y].arrayPos = pos;
-            LandRegenerator.instance.RegenLand(new Vector3Int(pos.x, 0, pos.y));
+            if (regen)
+            {
+                LandRegenerator.instance.RegenLand(new Vector3Int(pos.x, 0, pos.y));
+            }
             activeLands.Add(lands[pos.x, pos.y]);
         }
         return lands[pos.x, pos.y];

@@ -6,7 +6,7 @@ public class Land : MonoBehaviour
 {
     public Vector2Int arrayPos;
     public GameObject[] buyPoints;
-
+    public Transform enteties;
 
     private void Start()
     {

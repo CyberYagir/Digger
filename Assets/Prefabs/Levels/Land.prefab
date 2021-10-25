@@ -126,11 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shaderNames:
-  - Desktop
   - Mobile
-  shaderIndex: 1
+  shaderIndex: 0
   shader: {fileID: 4800000, guid: 644d4419f6d30214892dd65158332ba7, type: 3}
-  renderQueue: 3000
+  renderQueue: 2000
   enableVertexColors: 0
   enableDepthTex: 1
   isUnlit: 0
@@ -286,7 +285,7 @@ MonoBehaviour:
   currentCam: {fileID: 0}
   material: {fileID: 2100000, guid: f4248de3f6095664f97000e850cb9264, type: 2}
   isMobileAdvanced: 1
-  isMobilePlatform: 0
+  isMobilePlatform: 1
   shaderName: StylizedWater/Mobile
   isWaterLayer: 1
   hasShaderParams: 1
@@ -431,6 +430,7 @@ MonoBehaviour:
   - {fileID: 5758067926460800613}
   - {fileID: 5662955295257777308}
   - {fileID: 7072531497673598886}
+  enteties: {fileID: 7162906718204183242}
 --- !u!1 &4553847128413655596
 GameObject:
   m_ObjectHideFlags: 0

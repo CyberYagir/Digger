@@ -7,7 +7,8 @@ public class LandRegenerator : MonoBehaviour
     public static LandRegenerator instance;
     [SerializeField] Vector2 range;
     EntityManager entityManager;
-    [SerializeField] List<GameObject> resources;
+    [SerializeField] List<GameObject> resourcesForSpawn;
+    public List<GameObject> resourcesList;
 
     private void Start()
     {
@@ -34,9 +35,9 @@ public class LandRegenerator : MonoBehaviour
             }
             if (hit.transform.tag == "Grass")
             {
-                var res = Random.Range(0, resources.Count);
-                var m = Instantiate(resources[res], hit.point, Quaternion.identity, GameManger.currentLevel.treesHolder);
-                m.transform.localScale = resources[res].transform.localScale;
+                var res = Random.Range(0, resourcesForSpawn.Count);
+                var m = Instantiate(resourcesForSpawn[res], hit.point, Quaternion.identity, LandsManager.instance.lands[landPos.x/50, landPos.y/50].enteties);
+                m.transform.localScale = resourcesForSpawn[res].transform.localScale;
                 entityManager.entities.Add(m.GetComponent<Entity>());
             }
         }

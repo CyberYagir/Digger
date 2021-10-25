@@ -1429,6 +1429,7 @@ GameObject:
   - component: {fileID: 1241118945}
   - component: {fileID: 1241118946}
   - component: {fileID: 1241118947}
+  - component: {fileID: 1241118948}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1540,13 +1541,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: {x: 45, y: 45}
-  resources:
+  resourcesForSpawn:
   - {fileID: 3451706069578917780, guid: 5d85dd22868e8d7449d1b9158860e396, type: 3}
   - {fileID: 3451706069578917780, guid: 4cf9959fb13a4294a872e99554f015e9, type: 3}
   - {fileID: 3451706069578917780, guid: 4cf9959fb13a4294a872e99554f015e9, type: 3}
   - {fileID: 3451706069578917780, guid: 4cf9959fb13a4294a872e99554f015e9, type: 3}
   - {fileID: 3451706069578917780, guid: 4cf9959fb13a4294a872e99554f015e9, type: 3}
   - {fileID: 3451706069578917780, guid: 4cf9959fb13a4294a872e99554f015e9, type: 3}
+  resourcesList:
+  - {fileID: 3451706069578917780, guid: 4cf9959fb13a4294a872e99554f015e9, type: 3}
+  - {fileID: 3451706069578917780, guid: 5d85dd22868e8d7449d1b9158860e396, type: 3}
 --- !u!114 &1241118947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1561,6 +1565,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   landPrefab: {fileID: 3831679320700001608, guid: a56b1b407fee1464d8436e2c95e39909, type: 3}
   activeLands: []
+--- !u!114 &1241118948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241118939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2a0c4f89d9aac479e01731bb3e1f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    playerData:
+      stackData:
+        stack: 
+    botsData: []
 --- !u!1 &1482341322
 GameObject:
   m_ObjectHideFlags: 0

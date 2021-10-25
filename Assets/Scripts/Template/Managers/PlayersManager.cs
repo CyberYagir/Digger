@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+public enum PlayerDataType {Player, Bot, Building};
+
 [System.Serializable]
 public class PlayerData {
     public MovebleObject move;
     public ActiveEntity targets;
     public StackManager stack;
+    public PlayerDataType playerDataType;
 }
 
 public class PlayersManager : MonoBehaviour
@@ -31,14 +35,20 @@ public class PlayersManager : MonoBehaviour
 
     public PlayerData AddPlayer(MovebleObject obj)
     {
-        var pd = new PlayerData() { move = obj, stack = obj.GetComponent<StackManager>(), targets = obj.GetComponent<ActiveEntity>() };
+        var type = PlayerDataType.Bot;
+        if (obj is Player)
+        {
+            type = PlayerDataType.Player;
+        }
+
+        var pd = new PlayerData() { move = obj, stack = obj.GetComponent<StackManager>(), targets = obj.GetComponent<ActiveEntity>(), playerDataType = type};
         players.Add(pd);
         return pd;
     }
 
     public PlayerData AddPlayer(StackManager obj)
     {
-        var pd = new PlayerData() { stack = obj.GetComponent<StackManager>() };
+        var pd = new PlayerData() { stack = obj.GetComponent<StackManager>(), playerDataType = PlayerDataType.Building};
         players.Add(pd);
         return pd;
     }
