@@ -47,16 +47,22 @@ public class StackManager : MonoBehaviour
             stack[i].localPos = GetPos(i);
         }
     }
-    public Vector3 AddInStack(Transform obj, bool startEvent = true)
+    public Vector3 AddInStack(Transform obj, bool startEvent = true, bool setStartPos = false)
     {
         obj.transform.parent = stackBackPack;
         var drp = obj.GetComponent<Drop>();
         drp.stackManager = this;
         stack.Add(drp);
-        ResoucesManager.instance.UpdateResources();
+        ResourcesManager.instance.UpdateResources();
         StatsUI.instance.Redraw();
         if (startEvent)
             AddToInventory();
+        if (setStartPos)
+        {
+            obj.localPosition = GetPos(stack.Count - 1);
+            obj.localRotation = Quaternion.identity;
+        }
+
         return GetPos(stack.Count - 1);
     }
     public Drop RemoveFromStack(int id = 0, bool reAssign = false)

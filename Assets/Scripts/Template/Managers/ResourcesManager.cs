@@ -15,14 +15,14 @@ public class AbstractItem
     public int value;
     public Sprite icon;
 }
-public class ResoucesManager : MonoBehaviour
+public class ResourcesManager : MonoBehaviour
 {
     public List<ItemCounter> valueItems = new List<ItemCounter>();
     public List<AbstractItem> itemsAbstract = new List<AbstractItem>(); 
 
     PlayersManager playersManager;
 
-    public static ResoucesManager instance;
+    public static ResourcesManager instance;
 
 
     private void Awake()
@@ -85,7 +85,7 @@ public class ResoucesManager : MonoBehaviour
 
         if (removed.Count != 0)
         {
-            ResoucesManager.instance.UpdateResources();
+            ResourcesManager.instance.UpdateResources();
             StatsUI.instance.Redraw();
         }
         return removed;
@@ -101,6 +101,10 @@ public class ResoucesManager : MonoBehaviour
     public void AddToAbstract(string name, int val)
     {
         itemsAbstract.Find(x => x.name == name).value += val;
+    }
+    public void SetToAbstract(string name, int val)
+    {
+        itemsAbstract.Find(x => x.name == name).value = val;
     }
     public bool SubToAbstract(string name, int val)
     {

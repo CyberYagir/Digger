@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
-    [SerializeField] StackManager stackManager;
+    public StackManager stackManager;
     void Start()
     {
         stackManager = GetComponent<StackManager>();

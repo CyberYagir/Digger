@@ -22,13 +22,13 @@ public class StatsUI : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-        var sort = ResoucesManager.instance.valueItems.OrderBy(x => x.id).ToList();
+        var sort = ResourcesManager.instance.valueItems.OrderBy(x => x.id).ToList();
         foreach (var it in sort)
         {
             SpawnItem(it);
         }
 
-        var sortAbst = ResoucesManager.instance.itemsAbstract.OrderBy(x => x.value).ToList();
+        var sortAbst = ResourcesManager.instance.itemsAbstract.OrderBy(x => x.value).ToList();
         foreach (var it in sortAbst)
         {
             if (it.value > 0)

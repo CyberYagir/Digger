@@ -10,7 +10,7 @@ public class BuildingStatsUI : MonoBehaviour
     [SerializeField] GameObject resourcePrefab;
     [SerializeField] BuyItem buyItem;
 
-    private void Start()
+    private void Awake()
     {
         buyItem.ItemsChangeEvent += delegate { Redraw(); };
         Redraw();

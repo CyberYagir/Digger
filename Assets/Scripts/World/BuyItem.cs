@@ -44,7 +44,10 @@ public class BuyItem : ActionCircle
         }
         SetPreview();
     }
-
+    public void UpdateUI()
+    {
+        ItemsChangeEvent();
+    }
 
     public void SetPreview()
     {
@@ -72,7 +75,6 @@ public class BuyItem : ActionCircle
                 {
                     xCount = 0;
                     y++;
-
                 }
             }
         }
@@ -87,7 +89,8 @@ public class BuyItem : ActionCircle
         for (int i = 0; i < stack.Count; i++)
         {
             stack[i].preview.gameObject.SetActive(true);
-            Destroy(stack[i].drop.gameObject);
+            if (stack[i].drop)
+                Destroy(stack[i].drop.gameObject);
         }
     }
     bool spawn;
@@ -104,12 +107,14 @@ public class BuyItem : ActionCircle
                     {
                         if (IsValidDropPoint(items[i].itemID))
                         {
-                            var removed = ResoucesManager.instance.RemoveItem(items[i].itemID, 1);
-                            items[i].value -= removed.Count;
+                            var removed = ResourcesManager.instance.RemoveItem(items[i].itemID, 1);
                             foreach (var item in removed)
                             {
-                                item.transform.parent = stackTransform;
-                                SetDropPos(item);
+                                if (items[i].value > 0)
+                                {
+                                    items[i].value -= 1;
+                                    AddInList(item);
+                                }
                             }
                             ItemsChangeEvent();
                             //StartCoroutine(moveDrop(removed));
@@ -133,16 +138,27 @@ public class BuyItem : ActionCircle
             spawn = false;
         }
     }
+
+    public void AddInList(Drop item, bool setLocalPos = false)
+    {
+        item.transform.parent = stackTransform;
+        SetDropPos(item, setLocalPos);
+    }
     public bool IsValidDropPoint(int resourceID)
     {
         return (stack.Find(x => x.drop == null && x.resID == resourceID) != null);
     }
-    public void SetDropPos(Drop drop)
+    public void SetDropPos(Drop drop, bool setLocal = false)
     {
         var emptyPoint = stack.Find(x => x.drop == null && x.resID == drop.resourceID);
         drop.localPos = emptyPoint.pos;
         emptyPoint.drop = drop.transform;
         emptyPoint.preview.gameObject.SetActive(false);
+        if (setLocal)
+        {
+            drop.transform.localPosition = emptyPoint.pos;
+            drop.transform.localRotation = emptyPoint.preview.localRotation;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

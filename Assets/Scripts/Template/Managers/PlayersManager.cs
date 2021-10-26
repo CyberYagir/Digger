@@ -17,7 +17,7 @@ public class PlayersManager : MonoBehaviour
 {
     public static PlayersManager instance;
     public List<PlayerData> players;
-
+    public GameObject botPrefab;
     private void Awake()
     {
         instance = this;

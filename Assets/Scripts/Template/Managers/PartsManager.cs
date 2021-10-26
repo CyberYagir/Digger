@@ -42,7 +42,7 @@ public class PartsManager : MonoBehaviour
         {
             foreach (var item in LandsManager.instance.activeLands)
             {
-                LandRegenerator.instance.Regen(new Vector3Int(item.arrayPos.x, 0, item.arrayPos.y));
+                LandRegenerator.instance.Regen(new Vector3Int(item.arrayPos.x, 0, item.arrayPos.y)*50);
             }
         }
     }

@@ -9,6 +9,8 @@ public class Drop : MonoBehaviour
     public StackManager stackManager;
     public float entityID;
     public int resourceID = -1;
+    [HideInInspector]
+    public bool dontDestroy;
     private void Start()
     {
         var n = EntityManager.entityManager.mined.Find(x => x.entityID == entityID);
@@ -18,7 +20,10 @@ public class Drop : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            if (!dontDestroy)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

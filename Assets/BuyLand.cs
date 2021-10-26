@@ -9,12 +9,14 @@ public class BuyLand : MonoBehaviour
     public Vector2Int dir;
     public TMP_Text text;
     Vector2Int parentPos;
+
+    public bool initMoney = true;
     private void Start()
     {
         parentPos = GetComponentInParent<Land>().arrayPos;
-        money *= LandsManager.instance.activeLands.Count;
+        if (initMoney)
+            money *= LandsManager.instance.activeLands.Count;
         UpdateText();
-
     }
 
     private void Update()
@@ -27,9 +29,9 @@ public class BuyLand : MonoBehaviour
     public void Buy()
     {
         UpdateText();
-        if (money - ResoucesManager.GetItemAbstract("Coin").value <= 0)
+        if (money - ResourcesManager.GetItemAbstract("Coin").value <= 0)
         {
-            ResoucesManager.GetItemAbstract("Coin").value -= money;
+            ResourcesManager.GetItemAbstract("Coin").value -= money;
             money = 0;
         }
 

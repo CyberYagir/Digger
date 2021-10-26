@@ -1511,6 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: []
+  botPrefab: {fileID: 118305153836545646, guid: 65e9d403e3c9f1645a0bb9fb3676ca5b, type: 3}
 --- !u!114 &1241118945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,7 +1521,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1241118939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a285d8ac55ac1bc4ebb7e8398dd27783, type: 3}
+  m_Script: {fileID: 11500000, guid: f4528ea5f846074479f205749c06b8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   valueItems: []
@@ -1579,9 +1580,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     playerData:
+      pos:
+        x: 0
+        y: 0
+        z: 0
+      rot:
+        x: 0
+        y: 0
+        z: 0
       stackData:
         stack: 
+    abstractItems: []
     botsData: []
+    lands: []
+    buildings: []
 --- !u!1 &1482341322
 GameObject:
   m_ObjectHideFlags: 0
