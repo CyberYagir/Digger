@@ -26,6 +26,18 @@ public class Drop : MonoBehaviour
             }
         }
     }
+    public void SetLayer(int layer)
+    {
+        foreach (var item in GetComponentsInChildren<Renderer>())
+        {
+            item.gameObject.layer = layer;
+        }
+        foreach (var item in GetComponentsInChildren<Collider>())
+        {
+            item.isTrigger = true;
+        }
+    }
+
 
     private void Update()
     {
@@ -37,7 +49,7 @@ public class Drop : MonoBehaviour
                 localPos = stackManager.AddInStack(transform);
                 Destroy(GetComponent<Rigidbody>());
                 GetComponentInChildren<Collider>().isTrigger = true;
-                GetComponentInChildren<Collider>().gameObject.layer = LayerMask.NameToLayer("Player");
+                GetComponentInChildren<Collider>().gameObject.layer = stackManager.gameObject.layer;
             }
             else
             {

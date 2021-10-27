@@ -28,7 +28,7 @@ public class BuyItem : ActionCircle
     [ReadOnly] public int stackCount;
     [SerializeField] int maxLength;
     [SerializeField] float interval = 0.25f;
-    [SerializeField] Transform stackTransform;
+    public Transform stackTransform;
     [SerializeField] bool triggered, waitForExit;
 
     public event Action ItemsChangeEvent = delegate { };

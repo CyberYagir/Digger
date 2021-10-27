@@ -145,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poof: {fileID: 187952, guid: c05e92eaee7a00844867e5edc8e0dde1, type: 3}
-  bot: {fileID: 118305153836545646, guid: 65e9d403e3c9f1645a0bb9fb3676ca5b, type: 3}
   spawnPoint: {fileID: 2929883829704017125}
 --- !u!114 &3240448370954464114
 MonoBehaviour:
@@ -197,7 +196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2929883829303352117}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

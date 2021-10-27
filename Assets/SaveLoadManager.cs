@@ -280,6 +280,8 @@ public class SaveLoadManager : MonoBehaviour
                         var drp = Instantiate(ItemsManager.GetItem(builD.items[a].itemID).prefab).GetComponent<Drop>();
                         drp.resourceID = builD.items[a].itemID;
                         drp.dontDestroy = true;
+
+                        drp.SetLayer(bItem.stackTransform.gameObject.layer);
                         bItem.AddInList(drp, true);
                         bItem.items[a].value -= 1;
                     }
@@ -299,12 +301,14 @@ public class SaveLoadManager : MonoBehaviour
     }
 
 
+
     public void RestoreStackManager(StackData stackData, StackManager stackManager)
     {
         foreach (var rID in stackData.stack)
         {
 
             var drop = Instantiate(ItemsManager.GetItem(rID).prefab).GetComponent<Drop>();
+            drop.SetLayer(stackManager.gameObject.layer);
             drop.resourceID = rID;
             drop.dontDestroy = true;
             drop.localPos = stackManager.AddInStack(drop.transform, false, true);
@@ -324,5 +328,11 @@ public class SaveLoadManager : MonoBehaviour
             stackd.stack.Add(item.resourceID);
         }
         return stackd;
+    }
+
+
+    private void OnApplicationPause(bool pause)
+    {
+        Save();
     }
 }

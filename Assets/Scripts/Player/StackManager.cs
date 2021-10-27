@@ -12,7 +12,7 @@ public class StackManager : MonoBehaviour
     public static event System.Action AddToInventory = delegate { };
     private void Update()
     {
-        if (Physics.Raycast(Camera.main.transform.position, transform.position - Camera.main.transform.position, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Player")))
+        if (Physics.Raycast(Camera.main.transform.position, transform.position - Camera.main.transform.position, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Player", "Bot")))
         {
             if (hit.collider != null)
             {

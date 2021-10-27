@@ -17,7 +17,8 @@ public class LandRegenerator : MonoBehaviour
     }
     public void Regen(Vector3Int landPos, bool check = false)
     {
-        if (entityManager.entities.FindAll(x=>x != null).Count < 80 || check)
+        var chunk = LandsManager.instance.lands[landPos.x / 50, landPos.y / 50];
+        if (chunk.enteties.childCount < 40 || check)
         {
             entityManager.ResetData();
             RaycastHit hit;
@@ -36,7 +37,7 @@ public class LandRegenerator : MonoBehaviour
             if (hit.transform.tag == "Grass")
             {
                 var res = Random.Range(0, resourcesForSpawn.Count);
-                var m = Instantiate(resourcesForSpawn[res], hit.point, Quaternion.identity, LandsManager.instance.lands[landPos.x/50, landPos.y/50].enteties);
+                var m = Instantiate(resourcesForSpawn[res], hit.point, Quaternion.identity, chunk.enteties);
                 m.transform.localScale = resourcesForSpawn[res].transform.localScale;
                 entityManager.entities.Add(m.GetComponent<Entity>());
             }

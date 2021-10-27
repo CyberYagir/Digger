@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface IEntity {
@@ -15,6 +16,7 @@ public class ActiveEntity : MonoBehaviour
     public void AddEntity(IEntity entity)
     {
         entities.Add(entity);
+        Sort(entity);
     }
     public IEntity GetCurrentEntity(bool findEmpty = false)
     {
@@ -35,8 +37,14 @@ public class ActiveEntity : MonoBehaviour
     public void RemoveEntity(IEntity entity)
     {
         entities.RemoveAll(x => x == entity || x == null);
+        Sort(entity);
     }
 
+    public void Sort(IEntity entity)
+    {
+        entities.OrderBy(x => Vector3.Distance(entity.getSelf().transform.position, transform.position));
+        //print("max: " + Vector3.Distance(entities[entities.Count - 1].getSelf().transform.position, transform.position) + "/" + "min: " + Vector3.Distance(entities[0].getSelf().transform.position, transform.position));
+    }
 
     private void OnDrawGizmos()
     {

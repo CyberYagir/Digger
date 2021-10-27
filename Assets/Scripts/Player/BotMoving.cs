@@ -1,6 +1,7 @@
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BotMoving : MovebleObject
@@ -9,11 +10,12 @@ public class BotMoving : MovebleObject
     public float minDistance;
     public float maxDistance;
     ActiveEntity activeEntity;
-    bool moveToPlayer;
-     AIDestinationSetter target;
+    AIDestinationSetter target;
     AIPath aiPath;
     [ReadOnly] public Transform targetTree;
-    bool findOtherTree;
+
+    public enum BotModes { Idle, BackToPlayer, Mining, MoveToTarget};
+    public BotModes botModes;
     private void Start()
     {
         Init();
@@ -27,86 +29,98 @@ public class BotMoving : MovebleObject
         var playerPos = GameManger.player.transform.position;
         var distToPlayer = Vector3.Distance(playerPos, transform.position);
 
-        if ((activeEntity.GetCurrentEntity() == null && distToPlayer < maxDistance && !moveToPlayer) || findOtherTree)
-        {
-            if (targetTree == null)
-            {
-                findOtherTree = false;
-                var dst = 99999f;
-                int id = -1;
-                var e = EntityManager.entityManager.entities;
-                for (int i = 0; i < e.Count; i++)
-                {
-                    if (e[i] != null)
-                    {
-                        var n = Vector3.Distance(e[i].transform.position, transform.position);
-                        if (n < dst && n < maxDistance / 1.2f && e[i].miner == null)
-                        {
-                            dst = n;
-                            id = i;
-                        }
-                    }
-                }
-                if (id != -1)
-                {
-                    targetTree = e[id].transform;
-                }
-            }
-            else
-            {
-                var ent = targetTree.GetComponent<Entity>();
-                if (ent.miner == null || ent.miner == activeEntity)
-                {
-                    Move(targetTree.transform);
-                }
-                else
-                {
-                    targetTree = null;
-                }
-            }
-        }
-        else if (distToPlayer > maxDistance)
-        {
-            targetTree = null;
-            moveToPlayer = true;
-        }
 
-        if (targetTree != null)
+        if (distToPlayer > 15)
         {
-            var ent = targetTree.GetComponent<Entity>();
-            if (ent.miner != null && ent.miner != activeEntity)
-            {
-                targetTree = null;
-                findOtherTree = true;
-            }
-        }
-        if (new Vector3(aiPath.velocity.x, 0, aiPath.velocity.z).magnitude > 0.01f)
-        {
-            run += Time.deltaTime * 2;
-        }
-
-        if (moveToPlayer)
-        {
-            if (distToPlayer < minDistance)
-            {
-                moveToPlayer = false;
-            }
-        }
-        if ((!isMineTarget || distToPlayer > maxDistance) && distToPlayer > minDistance + 3 && targetTree == null || moveToPlayer)
-        {
-            if (!isMineTarget || distToPlayer > maxDistance || distToPlayer > minDistance)
-            {
-                moveToPlayer = true;
-            }
-            Move(GameManger.player.transform);
+            botModes = BotModes.BackToPlayer;
         }
         else
         {
-            if (new Vector3(aiPath.velocity.x, 0, aiPath.velocity.z).magnitude <= 0.01f)
+            if (botModes == BotModes.BackToPlayer)
             {
-                run -= Time.deltaTime * 2;
+                if (distToPlayer < 5)
+                {
+                    botModes = BotModes.Idle;
+                }
             }
         }
+
+
+        switch (botModes)
+        {
+            case BotModes.BackToPlayer:
+                target.target = GameManger.player.transform;
+                break;
+            case BotModes.Idle:
+                if (activeEntity.GetCurrentEntity() == null)
+                {
+                    Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit);
+                    var land = hit.transform.GetComponentInParent<Land>();
+                    if (land == null)
+                    {
+                        land = LandsManager.instance.activeLands[0];
+                    }
+                    var trees = land.enteties.Cast<Transform>().OrderBy(x => Vector3.Distance(transform.position, x.position)).ToList();
+                    if (trees.Count != 0)
+                    {
+                        for (int i = 0; i < trees.Count; i++)
+                        {
+                            var ent = trees[i].GetComponent<Entity>();
+                            if (ent.miner == activeEntity || ent.miner == null)
+                            {
+                                targetTree = ent.transform;
+                                botModes = BotModes.MoveToTarget;
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            case BotModes.Mining:
+                if (activeEntity.GetCurrentEntity() == null)
+                {
+                    botModes = BotModes.Idle;
+                }
+                else
+                {
+                    var miner = activeEntity.GetCurrentEntity().getSelf().miner;
+                    if (miner != activeEntity && miner != null)
+                    {
+                        botModes = BotModes.Idle;
+                    }
+                }
+                break;
+            case BotModes.MoveToTarget:
+                if (targetTree == null)
+                {
+                    botModes = BotModes.Idle;
+                }
+                else
+                {
+                    target.target = targetTree;
+                    if (activeEntity.GetCurrentEntity() != null)
+                    {
+                        var self = activeEntity.GetCurrentEntity().getSelf().transform;
+                        if (Vector3.Distance(self.position, transform.position) <= (1f * self.transform.localScale.x)/2f)
+                        {
+                            botModes = BotModes.Mining;
+                        }
+                        var miner = activeEntity.GetCurrentEntity().getSelf().miner;
+                        if (miner != activeEntity && miner != null)
+                        {
+                            activeEntity.RemoveEntity(activeEntity.GetCurrentEntity());
+                            botModes = BotModes.Idle;
+                        }
+                    }
+                    
+                }
+                break;
+            default:
+                break;
+        }
+
+        run = aiPath.velocity.normalized.magnitude;
+
         run = Mathf.Clamp01(run);
         animator.SetLayerWeight(1, run);
     }
