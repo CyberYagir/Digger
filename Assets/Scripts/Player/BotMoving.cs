@@ -101,7 +101,7 @@ public class BotMoving : MovebleObject
                     if (activeEntity.GetCurrentEntity() != null)
                     {
                         var self = activeEntity.GetCurrentEntity().getSelf().transform;
-                        if (Vector3.Distance(self.position, transform.position) <= (1f * self.transform.localScale.x)/2f)
+                        if (Vector3.Distance(self.position, transform.position) <= 0.2f)
                         {
                             botModes = BotModes.Mining;
                         }

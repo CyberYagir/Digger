@@ -1112,6 +1112,7 @@ MonoBehaviour:
   deathUI: {fileID: 3571249989138460997}
   winUI: {fileID: 6140330116709006749}
   tapToPlay: {fileID: 6752926209646803689}
+  tutor: {fileID: 8425791346040475253, guid: 6bfe480087856b74a849e10413ec8887, type: 3}
   loadingCanvas: {fileID: 4325046535969125762}
 --- !u!1 &6140330116709006749
 GameObject:

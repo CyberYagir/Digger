@@ -2461,6 +2461,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ActionPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2929883829247744141, guid: 7c75302f034888a4c80f9f9dedab8fc2, type: 3}
+      propertyPath: m_TagString
+      value: BotsSpawn
+      objectReference: {fileID: 0}
     - target: {fileID: 3240448370954464114, guid: 7c75302f034888a4c80f9f9dedab8fc2, type: 3}
       propertyPath: items.Array.data[0].value
       value: 5

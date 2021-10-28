@@ -66,7 +66,7 @@ Material:
     - _EnableDepthTexture: 1
     - _FoamDistortion: 0.45
     - _FoamOpacity: 1
-    - _FoamSize: 0
+    - _FoamSize: 0.057
     - _FoamSpeed: 0.835
     - _FoamTiling: 1
     - _Fresnelexponent: 2.6
@@ -116,5 +116,5 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 0.509}
     - _WaterColor: {r: 0.2216981, g: 0.8334796, b: 1, a: 0}
     - _WaterShallowColor: {r: 0.41911757, g: 1, b: 0.8798174, a: 1}
-    - _WaveDirection: {r: 0, g: 0, b: 0, a: 8.46}
+    - _WaveDirection: {r: 0.2, g: 0, b: -0.03, a: 0}
   m_BuildTextureStacks: []

@@ -8,6 +8,7 @@ public class RandomScale : MonoBehaviour
 
     private void Start()
     {
-        transform.localScale *= Random.Range(min, max); 
+        if (transform.localScale == Vector3.one)
+            transform.localScale *= Random.Range(min, max);
     }
 }

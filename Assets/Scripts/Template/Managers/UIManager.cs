@@ -7,12 +7,16 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField] GameObject deathUI, winUI;
-    [SerializeField] GameObject tapToPlay;
+    [SerializeField] GameObject tapToPlay, tutor;
     public GameObject loadingCanvas;
     #region Mono
     private void Start()
     {
         instance = this;
+        if (!(bool)GameDataObject.GetMain().saves.GetPref(Prefs.Tutorial))
+        {
+            Instantiate(tutor, transform);
+        }
         InitTapToPlay();
     }
 

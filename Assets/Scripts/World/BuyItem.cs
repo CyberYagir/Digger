@@ -162,7 +162,7 @@ public class BuyItem : ActionCircle
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<Player>())
+        if (other.GetComponentInParent<Player>() && other.isTrigger == false)
         {
             time = 0;
             triggered = true;
@@ -170,8 +170,11 @@ public class BuyItem : ActionCircle
     }
     private void OnTriggerExit(Collider other)
     {
-        waitForExit = false;
-        triggered = false;
+        if (other.GetComponentInParent<Player>() && other.isTrigger == false)
+        {
+            waitForExit = false;
+            triggered = false;
+        }
     }
 
     private void OnDrawGizmos()

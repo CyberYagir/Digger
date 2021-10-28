@@ -130,7 +130,7 @@ public class SaveLoadManager : MonoBehaviour
 
     public void Start()
     {
-        if (haveSave)
+        if (haveSave && (bool)GameDataObject.GetMain().saves.GetPref(Prefs.Tutorial))
         {
             Load();
         }
@@ -333,6 +333,9 @@ public class SaveLoadManager : MonoBehaviour
 
     private void OnApplicationPause(bool pause)
     {
-        Save();
+        if ((bool)GameDataObject.GetMain().saves.GetPref(Prefs.Tutorial))
+        {
+            Save();
+        }
     }
 }

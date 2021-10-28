@@ -5,7 +5,7 @@ using UnityEngine;
 public class SavesDataObject : AbstractSavesDataObject { };
 
 #region Abstract_Enums 
-public enum Prefs { Level, CompletedLevels, Coins} //Добавить элемент для нового префса
+public enum Prefs { Level, CompletedLevels, Tutorial} //Добавить элемент для нового префса
 public enum PrefType { String, Int, Float, Bool }
 [System.Serializable]
 public class PrefsValue
