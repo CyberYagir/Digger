@@ -150,8 +150,9 @@ public class SaveLoadManager : MonoBehaviour
 
     public void Save()
     {
-        data = new Data();
+        if (LandsManager.instance.activeLands.Count == 0) return;
 
+        data = new Data();
         #region Player
         var pl = GameManger.player.transform;
         data.playerData = new MovableData() { pos = new Vector3C(pl.position), rot = new Vector3C(pl.localEulerAngles), stackData = StackManagerToData(pl.GetComponent<StackManager>()) };
@@ -253,6 +254,7 @@ public class SaveLoadManager : MonoBehaviour
                 var bt = Instantiate(PlayersManager.instance.botPrefab, botD.pos.back(), Quaternion.Euler(botD.rot.back()));
                 PlayersManager.instance.AddPlayer(bt.GetComponent<MovebleObject>());
                 RestoreStackManager(botD.stackData, bt.GetComponent<StackManager>());
+                bt.GetComponent<BotMoving>().Init();
             }
         }
         #endregion

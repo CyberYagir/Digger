@@ -8,6 +8,7 @@ public class CoinHouse : MonoBehaviour
     Building building;
     [SerializeField] GameObject coin;
     [SerializeField] ParticleSystem particleSystem;
+    public string itemName;
     private void Start()
     {
         building = GetComponent<Building>();
@@ -28,7 +29,7 @@ public class CoinHouse : MonoBehaviour
     {
         if ((coinProgress >= coinTime))
         {
-            ResourcesManager.instance.AddToAbstract("Coin", 1);
+            ResourcesManager.instance.AddToAbstract(itemName, 1);
             coinProgress = -1;
             particleSystem.Play();
             StatsUI.instance.Redraw();
