@@ -83,15 +83,9 @@ public class Builder : MonoBehaviour
                                     }
                                 }
 
-
                                 preview.transform.position = oldPos;
 
-                                foreach (var item in preview.GetComponentsInChildren<Renderer>())
-                                {
-                                    if (item is SpriteRenderer) { item.gameObject.SetActive(false); continue; }
-                                    if (item.GetComponent<ActionPoint>() != null) { item.transform.parent.gameObject.SetActive(false); continue; };
-                                    item.material = allNormal ? buildOK : buildNo;
-                                }
+                                DrawCan();
                             }
                         }
                     }
@@ -100,6 +94,22 @@ public class Builder : MonoBehaviour
         }
     }
 
+    public void DrawCan()
+    {
+        foreach (var item in preview.GetComponentsInChildren<Renderer>())
+        {
+            if (item is SpriteRenderer) { item.gameObject.SetActive(false); continue; }
+            if (item.GetComponent<ActionPoint>() != null) { item.transform.parent.gameObject.SetActive(false); continue; };
+
+            var mats = item.materials;
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i] = allNormal ? buildOK : buildNo;
+            }
+
+            item.materials = mats;
+        }
+    }
 
     public void AddRotation()
     {
@@ -198,6 +208,9 @@ public class Builder : MonoBehaviour
         placeCanvas.SetActive(true);
 
         preview.GetComponent<Building>().status = BuildingType.Preview;
+
+
+        DrawCan();
     }
 
 

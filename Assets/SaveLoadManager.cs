@@ -103,6 +103,14 @@ public class MovableData
 }
 
 [System.Serializable]
+public class PortData
+{
+    public List<PortCapitan.Need> needs = new List<PortCapitan.Need>();
+    public int reward = 2;
+    public int questCount = 0;
+}
+
+[System.Serializable]
 public class Data
 {
     public MovableData playerData;
@@ -113,6 +121,8 @@ public class Data
     public List<LandData> lands = new List<LandData>();
     [Space]
     public List<BuildingData> buildings = new List<BuildingData>();
+    [Space]
+    public PortData portData;
 }
 
 public class SaveLoadManager : MonoBehaviour
@@ -199,6 +209,14 @@ public class SaveLoadManager : MonoBehaviour
         {
             data.buildings.Add(new BuildingData() { name = item.houseName, pos = new Vector3C(item.transform.position), rot = new Vector3C(item.transform.localEulerAngles), stackData = StackManagerToData(item.GetComponent<StackManager>()), buildingType = item.status, items = item.status == BuildingType.InConstruction ? item.GetComponentInChildren<BuyItem>().items : null});
         }
+
+        #endregion
+
+        #region Port
+
+        var cap = FindObjectOfType<PortCapitan>();
+
+        data.portData = new PortData() { needs = cap.needs, questCount = cap.questCount, reward = cap.reward };
 
         #endregion
 
@@ -298,6 +316,16 @@ public class SaveLoadManager : MonoBehaviour
                 }
             }
         }
+
+        #endregion
+
+        #region Port
+
+        var cap = FindObjectOfType<PortCapitan>();
+
+        cap.needs = data.portData.needs;
+        cap.questCount = data.portData.questCount;
+        cap.reward = data.portData.reward;
 
         #endregion
     }

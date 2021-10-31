@@ -1644,6 +1644,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1465810036}
+        m_TargetAssemblyTypeName: PortCapitanUI, Assembly-CSharp
+        m_MethodName: Redraw
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   exit:
     m_PersistentCalls:
       m_Calls:
@@ -4322,6 +4334,9 @@ MonoBehaviour:
   - name: Flour
     value: 0
     icon: {fileID: 21300000, guid: 6205456ae48dd2e4f81825bc067e78ac, type: 3}
+  - name: Honey
+    value: 0
+    icon: {fileID: 21300000, guid: 1cab058856813d64bbef5fd23c908223, type: 3}
 --- !u!114 &1241118946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4387,6 +4402,10 @@ MonoBehaviour:
     botsData: []
     lands: []
     buildings: []
+    portData:
+      needs: []
+      reward: 2
+      questCount: 0
 --- !u!1 &1245799441
 GameObject:
   m_ObjectHideFlags: 0

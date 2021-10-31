@@ -27,7 +27,8 @@ public class PortCapitan : MonoBehaviour
         ChangeNeed += delegate { GetComponentInChildren<PortCapitanUI>(true).Redraw(); };
         ChangeNeed += delegate { StatsUI.instance.Redraw(); };
 
-        CreateQuest();
+        if (needs.Count == 0)
+            CreateQuest();
     }
     public void AddItem(int needID)
     {
